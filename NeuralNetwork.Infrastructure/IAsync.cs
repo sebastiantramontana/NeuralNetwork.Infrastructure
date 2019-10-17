@@ -10,5 +10,7 @@ namespace NeuralNetwork.Infrastructure
       void SuspendContext();
       void RestoreContext();
       void Wrap(Func<Task> actionAsync);
+      Task Run(Action action);
+      Task<T> Run<T>(Func<T> func);
    }
 }

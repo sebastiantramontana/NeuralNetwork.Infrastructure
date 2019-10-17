@@ -7,7 +7,14 @@ namespace NeuralNetwork.Infrastructure
 {
    public class Async : IAsync
    {
-      private Stack<SynchronizationContext> _previousContexts = new Stack<SynchronizationContext>();
+      private int _suspendCount = 0;
+      private SynchronizationContext _previousContext;
+      private readonly Action<string> _notifyAction;
+
+      public Async(Action<string> notifyAction)
+      {
+         _notifyAction = notifyAction;
+      }
 
       public void SuspendContext()
       {
@@ -17,20 +24,29 @@ namespace NeuralNetwork.Infrastructure
             return;
          }
 
+         _suspendCount++;
+
          _previousContext = SynchronizationContext.Current;
          SynchronizationContext.SetSynchronizationContext(null);
-         _suspendCount++;
+         _notifyAction?.Invoke("Context null");
       }
 
       public void RestoreContext()
       {
-         if (_suspendCount != 1)
+         if (_suspendCount == 0)
          {
-            
             return;
          }
 
+         if (_suspendCount > 1)
+         {
+            _suspendCount--;
+            return;
+         }
+
+         _suspendCount = 0;
          SynchronizationContext.SetSynchronizationContext(_previousContext);
+         _notifyAction?.Invoke("Context restored");
          _previousContext = null;
       }
 
@@ -39,6 +55,22 @@ namespace NeuralNetwork.Infrastructure
          SuspendContext();
          await actionAsync();
          RestoreContext();
+      }
+
+      public async Task Run(Action action)
+      {
+         SuspendContext();
+         await Task.Run(action);
+         RestoreContext();
+      }
+
+      public async Task<T> Run<T>(Func<T> func)
+      {
+         SuspendContext();
+         T value = await Task.Run(func);
+         RestoreContext();
+
+         return value;
       }
    }
 }
