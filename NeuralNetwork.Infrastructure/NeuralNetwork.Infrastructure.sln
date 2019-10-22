@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeuralNetwork.Infrastructur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestWinForm", "..\TestWinForm\TestWinForm.csproj", "{F4CB3941-A432-4ADB-BDF8-E5DA2820344F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuralNetwork.Infraestructure.Winform", "..\NeuralNetwork.Infraestructure.Winform\NeuralNetwork.Infraestructure.Winform.csproj", "{E9715583-00F7-46B1-AB2E-F25CA51B1C69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F4CB3941-A432-4ADB-BDF8-E5DA2820344F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4CB3941-A432-4ADB-BDF8-E5DA2820344F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4CB3941-A432-4ADB-BDF8-E5DA2820344F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9715583-00F7-46B1-AB2E-F25CA51B1C69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9715583-00F7-46B1-AB2E-F25CA51B1C69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9715583-00F7-46B1-AB2E-F25CA51B1C69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9715583-00F7-46B1-AB2E-F25CA51B1C69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

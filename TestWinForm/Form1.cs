@@ -3,16 +3,20 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NeuralNetwork.Infrastructure;
+using NeuralNetwork.Infrastructure.Winform;
 
 namespace TestWinForm
 {
    public partial class Form1 : Form
    {
       private readonly IAsync _async;
+      private readonly IInvoker _invoker;
+
       public Form1()
       {
          InitializeComponent();
          _async = new Async(Log);
+         _invoker = new Invoker(this);
       }
 
       private void WrapButton_Click(object sender, System.EventArgs e)
@@ -21,7 +25,7 @@ namespace TestWinForm
 
          _async.Wrap(TestAsyncWrap);
 
-         Invoke(() =>
+         _invoker.SafeInvoke(() =>
          {
             lstLogs.Items.Add("OK Wrap...");
          });
@@ -33,7 +37,7 @@ namespace TestWinForm
 
          _async.Run(TestAsyncRunAction);
 
-         Invoke(() =>
+         _invoker.SafeInvoke(() =>
          {
             lstLogs.Items.Add("OK Run Action...");
          });
@@ -45,7 +49,7 @@ namespace TestWinForm
 
          var value = await _async.Run(TestAsyncRunFunction);
 
-         Invoke(() =>
+         _invoker.SafeInvoke(() =>
          {
             lstLogs.Items.Add($"OK Run Function = {value}");
          });
@@ -53,28 +57,28 @@ namespace TestWinForm
 
       private async Task TestAsyncWrap()
       {
-         Invoke(() =>
+         _invoker.SafeInvoke(() =>
          {
             lstLogs.Items.Add("Begin Delay Wrap...");
          });
 
          await Task.Delay(2000);
 
-         Invoke(() =>
+         _invoker.SafeInvoke(() =>
          {
             lstLogs.Items.Add("End Delay Wrap...");
          });
       }
       private void TestAsyncRunAction()
       {
-         Invoke(() =>
+         _invoker.SafeInvoke(() =>
          {
             lstLogs.Items.Add("Begin Delay Run Action...");
          });
 
          Thread.Sleep(2000);
 
-         Invoke(() =>
+         _invoker.SafeInvoke(() =>
          {
             lstLogs.Items.Add("End Delay Run Action...");
          });
@@ -82,14 +86,14 @@ namespace TestWinForm
 
       private int TestAsyncRunFunction()
       {
-         Invoke(() =>
+         _invoker.SafeInvoke(() =>
          {
             lstLogs.Items.Add("Begin Delay Run Function...");
          });
 
          Thread.Sleep(2000);
 
-         Invoke(() =>
+         _invoker.SafeInvoke(() =>
          {
             lstLogs.Items.Add("End Delay Run Function...");
          });
@@ -99,14 +103,10 @@ namespace TestWinForm
 
       private void Log(string msg)
       {
-         Invoke(() =>
+         _invoker.SafeInvoke(() =>
          {
             lstLogs.Items.Add(msg);
          });
-      }
-      private void Invoke(Action action)
-      {
-         this.Invoke((Delegate)action);
       }
    }
 }
