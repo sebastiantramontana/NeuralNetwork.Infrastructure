@@ -13,13 +13,16 @@ namespace NeuralNetwork.Infrastructure.Winform
       }
       public void SafeInvoke(Action action)
       {
-         if (_control.InvokeRequired)
+         if (_control.IsHandleCreated && !_control.IsDisposed)
          {
-            _control.Invoke(action);
-         }
-         else
-         {
-            action();
+            if (_control.InvokeRequired)
+            {
+               _control.Invoke(action);
+            }
+            else
+            {
+               action();
+            }
          }
       }
 
