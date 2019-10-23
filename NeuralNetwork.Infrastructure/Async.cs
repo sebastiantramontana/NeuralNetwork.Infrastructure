@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,11 +8,9 @@ namespace NeuralNetwork.Infrastructure
    {
       private int _suspendCount = 0;
       private SynchronizationContext _previousContext;
-      private readonly Action<string> _notifyAction;
 
-      public Async(Action<string> notifyAction)
+      public Async()
       {
-         _notifyAction = notifyAction;
       }
 
       public void SuspendContext()
@@ -28,7 +25,6 @@ namespace NeuralNetwork.Infrastructure
 
          _previousContext = SynchronizationContext.Current;
          SynchronizationContext.SetSynchronizationContext(null);
-         _notifyAction?.Invoke("Context null");
       }
 
       public void RestoreContext()
@@ -46,7 +42,6 @@ namespace NeuralNetwork.Infrastructure
 
          _suspendCount = 0;
          SynchronizationContext.SetSynchronizationContext(_previousContext);
-         _notifyAction?.Invoke("Context restored");
          _previousContext = null;
       }
 

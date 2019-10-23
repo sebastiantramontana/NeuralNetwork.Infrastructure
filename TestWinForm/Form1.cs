@@ -15,7 +15,7 @@ namespace TestWinForm
       public Form1()
       {
          InitializeComponent();
-         _async = new Async(Log);
+         _async = new Async();
          _invoker = new Invoker(this);
       }
 
@@ -99,14 +99,6 @@ namespace TestWinForm
          });
 
          return 100;
-      }
-
-      private void Log(string msg)
-      {
-         _invoker.SafeInvoke(() =>
-         {
-            lstLogs.Items.Add(msg);
-         });
       }
    }
 }
