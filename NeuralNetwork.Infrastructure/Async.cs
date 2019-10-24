@@ -17,6 +17,11 @@ namespace NeuralNetwork.Infrastructure
       {
          if (_suspendCount > 0)
          {
+            if (SynchronizationContext.Current != null)
+            {
+               SynchronizationContext.SetSynchronizationContext(null);
+            }
+
             _suspendCount++;
             return;
          }
@@ -29,7 +34,7 @@ namespace NeuralNetwork.Infrastructure
 
       public void RestoreContext()
       {
-         if (_suspendCount == 0)
+         if (_suspendCount < 0)
          {
             return;
          }

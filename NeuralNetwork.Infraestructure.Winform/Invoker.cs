@@ -28,7 +28,9 @@ namespace NeuralNetwork.Infrastructure.Winform
 
       public T SafeInvoke<T>(Func<T> action)
       {
-         return (_control.InvokeRequired ? (T)_control.Invoke(action) : action());
+         return (_control.IsHandleCreated && !_control.IsDisposed)
+            ? (_control.InvokeRequired ? (T)_control.Invoke(action) : action())
+            : default;
       }
    }
 }
