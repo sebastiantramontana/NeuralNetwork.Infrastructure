@@ -79,3 +79,4 @@
 /TestWinForm/obj/Release/netcoreapp3.0/*.exe
 /TestWinForm/obj/Release/netcoreapp3.0/*.pdb
 /NeuralNetwork.Infraestructure.Winform/obj/Debug/*.cs
+/NeuralNetwork.Infraestructure.Winform/obj/Release/*.cs
