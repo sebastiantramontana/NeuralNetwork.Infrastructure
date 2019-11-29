@@ -80,3 +80,9 @@
 /TestWinForm/obj/Release/netcoreapp3.0/*.pdb
 /NeuralNetwork.Infraestructure.Winform/obj/Debug/*.cs
 /NeuralNetwork.Infraestructure.Winform/obj/Release/*.cs
+/NeuralNetwork.Infrastructure/bin/Debug/netstandard2.1/*.json
+/NeuralNetwork.Infrastructure/bin/Debug/netstandard2.1/*.dll
+/NeuralNetwork.Infrastructure/bin/Debug/netstandard2.1/*.pdb
+/NeuralNetwork.Infrastructure/obj/Debug/netstandard2.1/*.txt
+/NeuralNetwork.Infrastructure/obj/Debug/netstandard2.1/*.dll
+/NeuralNetwork.Infrastructure/obj/Debug/netstandard2.1/*.pdb
